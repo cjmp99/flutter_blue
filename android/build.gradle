@@ -25,20 +25,15 @@ apply plugin: 'com.google.protobuf'
 
 android {  
     namespace 'com.flutter_blue' // Namespace de tu proyecto  
-    compileSdkVersion 33 // Asegúrate de que esta version sea adecuada  
+    compileSdkVersion 33 // Asegúrate de que esta versión sea adecuada  
 
     defaultConfig {  
         minSdkVersion 21 // Ajusta según lo que necesites  
         targetSdkVersion 33 // Generalmente debe coincidir con compileSdkVersion  
     }  
-
-    sourceSets {  
-        main {  
-            java.srcDirs += 'src/main/java' // Directorios de Java  
-            // Se eliminó la sección proto directamente  
-        }  
-    }  
 }  
+
+// Eliminar la sección de sourceSets por ahora para simplificar  
 
 protobuf {  
     protoc {  
@@ -52,6 +47,8 @@ protobuf {
                     option 'lite'  
                 }  
             }  
+            // Agregar una configuración de salida para evitar el error  
+            task.outputDir = "$buildDir/generated/source/proto" // Configura una salida para los archivos generados  
         }  
     }  
 }  
