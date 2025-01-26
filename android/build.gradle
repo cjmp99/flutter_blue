@@ -4,19 +4,19 @@ version '1.0'
 buildscript {  
     repositories {  
         google()  
-        mavenCentral() // JCenter ha sido descontinuado  
+        mavenCentral() // Usar mavenCentral en lugar de jcenter  
     }  
 
     dependencies {  
-        classpath 'com.android.tools.build:gradle:7.3.0' // Usa un plugin estable y reciente  
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15' // Asegúrate de que esta versión sea compatible  
+        classpath 'com.android.tools.build:gradle:7.3.0' // Usa una versión estable  
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15' // Ajusta si es necesario  
     }  
 }  
 
 allprojects {  
     repositories {  
         google()  
-        mavenCentral() // Asegúrate de que este sea el repositorio  
+        mavenCentral() // Usar mavenCentral para evitar problemas  
     }  
 }  
 
@@ -24,39 +24,39 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.google.protobuf'  
 
 android {  
-    namespace 'com.flutter_blue' // Tu namespace  
-    compileSdkVersion 33 // Asegúrate de que esta sea la versión correcta  
+    namespace 'com.flutter_blue' // Namespace de tu proyecto  
+    compileSdkVersion 33 // Asegúrate de que esta version sea adecuada  
 
     defaultConfig {  
-        minSdkVersion 21 // Ajusta según sea necesario  
-        targetSdkVersion 33 // Recomiendan que coincida con compileSdkVersion  
+        minSdkVersion 21 // Ajusta según lo que necesites  
+        targetSdkVersion 33 // Generalmente debe coincidir con compileSdkVersion  
     }  
 
     sourceSets {  
         main {  
-            java.srcDirs += 'src/main/java' // Directorio para código Java  
-            proto.srcDir '../protos' // Asegúrate de que la ruta sea correcta y contenga archivos .proto  
+            java.srcDirs += 'src/main/java' // Directorios de Java  
+            // Se eliminó la sección proto directamente  
         }  
     }  
 }  
 
 protobuf {  
     protoc {  
-        artifact = 'com.google.protobuf:protoc:3.21.12' // Usa una versión más reciente de protoc  
+        artifact = 'com.google.protobuf:protoc:3.21.12' // Usa una versión reciente de protoc  
     }  
 
-    // Elimina el bloque "generateProtoTasks" si necesitas simplificar  
     generateProtoTasks {  
-        all().forEach { task ->  
+        all().each { task ->  
             task.builtins {  
                 java {  
-                    option 'lite' // Usar el runtime 'lite' para reducir el tamaño  
+                    option 'lite'  
                 }  
             }  
         }  
     }  
 }  
 
+// Configuración de dependencias  
 dependencies {  
-    implementation 'com.google.protobuf:protobuf-javalite:3.21.12' // Usa la versión correcta  
+    implementation 'com.google.protobuf:protobuf-javalite:3.21.12' // Asegúrate de tener la versión más reciente  
 }
