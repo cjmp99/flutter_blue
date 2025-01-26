@@ -58,7 +58,7 @@ protobuf {
                 }  
             }  
             // Configurar la salida de archivos generados  
-            task.outputDir = "$project.buildDir/generated/source/proto" // Establecer un directorio de salida  
+            task.outputDir = "$project.buildDir/proto" // Establecer un directorio de salida  
         }  
     }  
 }  
