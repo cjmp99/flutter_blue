@@ -1,59 +1,61 @@
-group 'com.pauldemarco.flutter_blue'
-version '1.0'
+group 'com.pauldemarco.flutter_blue'  
+version '1.0'  
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
+buildscript {  
+    repositories {  
+        google()  
+        jcenter()  
+    }  
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15'
-    }
-}
+    dependencies {  
+        classpath 'com.android.tools.build:gradle:7.3.0' // Actualiza a la última versión estable  
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15'  
+    }  
+}  
 
-rootProject.allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
+rootProject.allprojects {  
+    repositories {  
+        google()  
+        jcenter()  
+    }  
+}  
 
-apply plugin: 'com.android.library'
-apply plugin: 'com.google.protobuf'
+apply plugin: 'com.android.library'  
+apply plugin: 'com.google.protobuf'  
 
-android {
-    namespace 'com.flutter_blue'
-    compileSdkVersion 30
+android {  
+    namespace 'com.flutter_blue' // Cambia a tu namespace preferido  
+    compileSdkVersion 33 // Actualiza a la versión más reciente  
 
-    defaultConfig {
-        minSdkVersion 19
-    }
-    sourceSets {
-        main {
-            proto {
-                srcDir '../protos'
-            }
-        }
-    }
-}
+    defaultConfig {  
+        minSdkVersion 21 // Ajusta según las necesidades de tu proyecto  
+        targetSdkVersion 33 // Siempre es recomendable que coincida con compileSdkVersion  
+    }  
 
-protobuf {
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.11.4'
-    }
-    generateProtoTasks {
-        all().each { task ->
-            task.builtins {
-                java {
-                    option "lite"
-                }
-            }
-        }
-    }
-}
+    sourceSets {  
+        main {  
+            proto {  
+                srcDir '../protos' // Asegúrate de que esta carpeta exista y contenga tus archivos .proto  
+            }  
+        }  
+    }  
+}  
 
-dependencies {
-    implementation 'com.google.protobuf:protobuf-javalite:3.11.4'
+protobuf {  
+    protoc {  
+        artifact = 'com.google.protobuf:protoc:3.21.12' // Usa una versión más reciente de protoc  
+    }  
+    generateProtoTasks {  
+        all().each { task ->  
+            task.builtins {  
+                java {  
+                    option "lite" // Usar la opción "lite" para Java  
+                }  
+            }  
+        }  
+    }  
+}  
+
+dependencies {  
+    implementation 'com.google.protobuf:protobuf-javalite:3.21.12' // Asegúrate de tener la versión más reciente  
 }
