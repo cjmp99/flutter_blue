@@ -10,6 +10,7 @@ buildscript {
     dependencies {  
         classpath 'com.android.tools.build:gradle:7.3.0' // Usa una versión estable  
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.15' // Ajusta si es necesario  
+        classpath 'com.google.protobuf:protobuf-javalite:3.21.12' // Ajusta si es necesario  
     }  
 }  
 
@@ -24,20 +25,29 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.google.protobuf'  
 
 android {  
-    namespace 'com.flutter_blue' // Namespace de tu proyecto  
-    compileSdkVersion 33 // Asegúrate de que esta versión sea adecuada  
+    namespace 'com.flutter_blue'  
+    compileSdkVersion 33  
 
     defaultConfig {  
-        minSdkVersion 21 // Ajusta según lo que necesites  
-        targetSdkVersion 33 // Generalmente debe coincidir con compileSdkVersion  
+        minSdkVersion 21  
+        targetSdkVersion 33  
+    }  
+
+    buildTypes {  
+        release {  
+            minifyEnabled false  
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'  
+        }  
     }  
 }  
 
-// Eliminar la sección de sourceSets por ahora para simplificar  
+dependencies {  
+    implementation 'com.google.protobuf:protobuf-javalite:3.21.12'  
+}  
 
 protobuf {  
     protoc {  
-        artifact = 'com.google.protobuf:protoc:3.21.12' // Usa una versión reciente de protoc  
+        artifact = 'com.google.protobuf:protoc:3.21.12'  
     }  
 
     generateProtoTasks {  
@@ -47,13 +57,8 @@ protobuf {
                     option 'lite'  
                 }  
             }  
-            // Agregar una configuración de salida para evitar el error  
-            task.outputDir = "$buildDir/generated/source/proto" // Configura una salida para los archivos generados  
+            // Configurar la salida de archivos generados  
+            task.outputDir = "$project.buildDir/generated/source/proto" // Establecer un directorio de salida  
         }  
     }  
 }  
-
-// Configuración de dependencias  
-dependencies {  
-    implementation 'com.google.protobuf:protobuf-javalite:3.21.12' // Asegúrate de tener la versión más reciente  
-}
